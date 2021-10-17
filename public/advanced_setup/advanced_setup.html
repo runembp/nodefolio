@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced setup of Node Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!--#region Navbar  -->
+    <script src="/navbar/navbar.js"></script>
+    <!--#endregion -->
+    <h1>Advanced setup and general use</h1>
+    <h4>"use strict", nodemon, let, const</h4>
+
+    <p>To avoid the use of undeclared variables, we can use this command in the top of our app.js file.</p>
+    <pre>
+        "use strict"
+    </pre>
+
+    <p>This ensures that we not able to create variables like this. This will cause an error. We will have to declare it with either let or const instead: </p>
+
+    <pre>
+        undeclared_variable = "hello world"
+    </pre>
+
+    <p>
+        Instead of having to rerun the application every time we have made a change to a file, we can install the dependency nodemon, which is a script that monitors
+        changes in our project. Everytime it detects a change, it restarts our application, and since Node is extremely lightweight, the operation barely takes any
+        noticable time.<br>
+        We install it through the use of either two options - installing it in our local package.json as a dependency, or we use a terminal command to
+        install it globally.
+    </p>
+    <pre>
+        package.json:
+        {
+            "dependencies": {
+                "express": "^4.17.1",
+                "nodemon": "^2.0.13"
+            }
+        }
+        OR commandline:
+            npm install --global nodemon
+    </pre>
+
+    <p>
+        Now we can simply run nodemon almost as we would run it normally, just with the nodemon command instead. Notice that I have included the .cmd extension, as
+        there might be some slight variations on how to run it. In Windows, the .cmd extension is needed, however in Unix, it is not.
+    </p>
+
+    <pre>
+        nodemon.cmd app.js
+    </pre>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Using Node</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!--#region Navbar  -->
+    <script src="/navbar/navbar.js"></script>
+    <!--#endregion -->
+    <h1>Using Node</h1>
+    <h4>Routing, json, static content, strict</h4>
+
+    <p>Node express routing is handled through the use of the corresponding HTTP verb to the action that needs to be taken.</p>
+    <p>To send and recieve JSON objects, we need to tell express to use json notation with the following command:</p>
+    <pre>
+        app.use(express.json())
+    </pre>
+    <p>
+        So, if we would like to make a HTTP Get Request on the server endpoint /test, to obtain the const lists, which contain a list of jsons objects,
+        we use the following .get() command:
+    </p>
+    <pre>
+        app.get("/test", (req, res) => {
+            res.send({hello: "World"})
+        })
+    </pre>
+
+    <p>
+        We see the two parameter variables, req and res, for request and response. The request is automatically obtained by the Get request and we respond
+        with the json object. <br/>
+        Here's a link for the <a href="/test">/test</a> endpoint, where we can see the hello-json object is recieved.
+    </p>
+
+    <p>
+        The following examples shows how we use the POST, PUT, PATCH and DELETE requests, where we assume, for the sake of better examples, that all objects are sent
+        with the absolutely correct notation. All the examples are available as server endpoints in the project as well:
+    </p>
+
+    <pre>
+        Get specific test object, based on index obtained through the id parameter:
+            app.get("/test/:id", (req, res) => {
+            res.send(tests[req.params.id])
+            })
+    </pre>
+
+    <p>Posts a new json object:</p>
+
+    <pre>
+        app.post("/test/", (req, res) => {
+            tests.push(req.body)
+            res.send(req.body)
+        })
+    </pre>
+
+    <p>Replaces the object in the tests list, based on the id obtained in the parameter, with the body of the request, and responds with status code 200 (OK):</p>
+
+    <pre>
+        app.put("/test/:id", (req, res) => {
+            tests[req.params.id] = req.body
+            res.sendStatus(200)
+        })
+    </pre>
+
+    <p>Replaces the value of the key "foofoo" with the request body, based on the id obtained in the request parameter, and responds with the status code 200 (OK):</p>
+
+    <pre>
+        app.patch("/test/:id", (req, res) => {
+            tests[req.params.id].foofoo = req.body
+            res.sendStatus(200)
+        })
+    </pre>
+
+    <p>Deletes the object in the index of the tests list, based on the id obtained in the request parameter, and responds with a status code 200 (OK):</p>
+
+    <pre>
+        app.delete("/test/:id", (req, res) => {
+            tests.slice(req.params.id)
+            res.sendStatus(200)
+        })
+    </pre>
+
+    <p>To serve static HTML content, as this page we are reading through right now, we need to tell express to serve static content and use the sendFile() function:</p>
+    <pre>
+        app.use(express.static("public"))
+
+        app.get("/", (req, res) => {
+            res.sendFile(`${__dirname}/public/index/index.html`)
+        })
+    </pre>
+</body>
+</html>

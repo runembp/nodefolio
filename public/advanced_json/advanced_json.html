@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced JSON Setup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!--#region Navbar  -->
+    <script src="/navbar/navbar.js"></script>
+    <!--#endregion -->
+    <h1>Advanced JSON options</h1>
+    <h4>Scripts and developer dependencies</h4>
+
+    <p>In the following code block, we see an example of advanced customization of the package.json</p>
+    <pre>
+        {
+          "scripts": {
+            "start-dev": "cross-env NODE_ENV=DEV PORT=8000 nodemon app.js",
+            "megascript": "npm run showappcontent & npm run showdirectorycontent",
+            "showdirectorycontent": "ls",
+            "showappcontent": "cat app.js"
+          },
+          "dependencies": {
+            "express": "^4.17.1"
+          },
+          "devDependencies": {
+            "cross-env": "^7.0.3"
+          }
+        }
+    </pre>
+
+    <p>
+        The "scripts" json object is commandline variables we can run our project with. It basically extends uses unix system commands to run whatever is contained
+        in the value of the key. We use npm to run these commands, and simply add our script after it, like so:
+    </p>
+    <pre>
+        npm run start-dev
+    </pre>
+
+    <p>If we take a look at the "start-dev" key, we can see the value has four different options set.</p>
+
+    <pre>
+        "start-dev": "cross-env NODE_ENV=DEV PORT=8000 nodemon app.js",
+    </pre>
+
+    <ol>
+        <li><pre>"start-dev"</pre>
+            The key of our JSON object, and the name of the script we use with npm.
+        </li>
+        <li><pre>"cross-env"</pre>
+            A module we have enabled and installed <i>only</i> to our Developer mode, which makes it possible to set a specific port number for several
+            different environments. As per the name, it works across several different environments.
+        </li>
+        <li>
+            <pre>"NODE_ENV=DEV"</pre>
+            This designates our NODE_ENVIRONMENT to be run in Developer mode and therefor, make use of the "DevDependencies" key-values we added in the package.json file.
+        </li>
+        <li>
+            <pre>PORT=8000</pre>
+            Designates which port our application will run in. Since this is Developer mode, we make sure not to run it on our production environment port (80), but instead, port 8000.
+        </li>
+        <li>
+            <pre>nodemon app.js</pre>
+            Launches the aforementioned node monitor service, which restarts the application every time a change is made in the app.js file.
+        </li>
+    </ol>
+</body>
+</html>
